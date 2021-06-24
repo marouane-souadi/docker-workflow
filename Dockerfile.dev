@@ -7,7 +7,7 @@ COPY package.json .
 RUN npm config set registry="http://registry.npmjs.org/"
 RUN npm install
 
-RUN chown -R node:node /app/node_modules
+# RUN chown -R node:node /app/node_modules
 
 COPY . .
 
