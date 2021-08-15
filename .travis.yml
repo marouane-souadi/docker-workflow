@@ -1,3 +1,4 @@
+language: generic 
 sudo: required
 services:
   - docker
@@ -7,3 +8,17 @@ before_install:
 
 script:
   - docker run -e CI=true marouane/docker-workflow npm run test
+
+# Deployment script
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "marouane-frontend-test"
+  env: "Marouanefrontendtest-env"
+  bucket_name: "elasticbeanstalk-us-west-2-291889847380" # search in S3 for a bucket sarting with elastic..., its the same for all beanstalk apps
+  bucket_path: "marouane-frontend-test" #same as app name
+  on:
+    branch: master
+  access_key_id: $aws_access_key
+  secret_access_key:
+    secure: "$aws_secret_key"
